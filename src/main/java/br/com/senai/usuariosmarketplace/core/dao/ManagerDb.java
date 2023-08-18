@@ -1,4 +1,4 @@
-package br.com.senai.usuariosmarketplace.core.dao.postgres;
+package br.com.senai.usuariosmarketplace.core.dao;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
