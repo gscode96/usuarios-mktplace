@@ -43,13 +43,16 @@ public class UsuarioService {
 	private List<String> fracionar(String nomeCompleto) {
 		// metodo para remover artigos
 		List<String> nomeFracionado = new ArrayList<String>();
-		if (nomeCompleto != null && !nomeCompleto.isBlank()) {
+		if (!Strings.isNullOrEmpty(nomeCompleto)) {
+			//removendo espaço em branco
+			nomeCompleto = nomeCompleto.trim();
 			String[] partesDoNome = nomeCompleto.split(" ");
 			for (String parte : partesDoNome) {
 				boolean isNaoContemArtigo = !parte.equalsIgnoreCase("de") && !parte.equalsIgnoreCase("e")
 						&& !parte.equalsIgnoreCase("da") && !parte.equalsIgnoreCase("do")
 						&& !parte.equalsIgnoreCase("dos") && !parte.equalsIgnoreCase("das");
 				if (isNaoContemArtigo) {
+					//colocando em minusculo
 					nomeFracionado.add(parte.toLowerCase());
 				}
 			}
