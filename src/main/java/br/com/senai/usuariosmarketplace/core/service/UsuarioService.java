@@ -25,6 +25,7 @@ public class UsuarioService {
 	}
 
 	public Usuario criarUsuarioPor(String nomeCompleto, String senha) {
+		
 		this.validar(nomeCompleto, senha);
 		String login = gerarLoginPor(nomeCompleto);
 		String senhaCriptografada = gerarHashDa(senha);
@@ -32,6 +33,25 @@ public class UsuarioService {
 		this.dao.inserir(novoUsuario);
 		Usuario usuarioSalvo = dao.buscarPor(login);
 		return usuarioSalvo;
+	}
+
+	public Usuario atualizarPor(String login, String nomeCompleto, String senhaAntiga, String senhaNova) {
+		//metodo para atualizar o cadastro do usuario
+		Preconditions.checkArgument(!Strings.isNullOrEmpty(login), "O Login é obrigatório para a atualização!");
+		Preconditions.checkArgument(!Strings.isNullOrEmpty(senhaAntiga),
+				"A senha antiga é obrigatoria para a atualização!");
+		this.validar(nomeCompleto, senhaNova);
+		Usuario usuarioSalvo = dao.buscarPor(login);
+		Preconditions.checkNotNull(usuarioSalvo, "Não foi encontrado usuário vinculado ao login informado");
+		String senhaAntigaCriptografada = gerarHashDa(senhaAntiga);
+		boolean isSenhaValida = senhaAntigaCriptografada.equals(usuarioSalvo.getSenha());
+		Preconditions.checkArgument(isSenhaValida, "A senha antiga não confere!");
+		Preconditions.checkArgument(!senhaAntiga.equals(senhaNova), "A senha nova não pode ser igual a senha anterior");
+		String senhaNovaCriptografada = gerarHashDa(senhaNova);
+		Usuario usuarioAlterado = new Usuario(login, senhaNovaCriptografada, nomeCompleto);
+		this.dao.alterar(usuarioAlterado);
+		usuarioAlterado = dao.buscarPor(login);
+		return usuarioAlterado;
 	}
 
 	private String removerAcentoDo(String nomeCompleto) {
