@@ -114,9 +114,11 @@ public class UsuarioService {
 		 * letra para caso nao conter lançar excessao
 		 * 
 		 * for (int i = 0; i < senha.length(); i++) { // verifica se tem numero e letra
-		 * na string passada if (Character.isDigit(senha.charAt(i))) { isContemNumero =
-		 * true; } else if (Character.isAlphabetic(senha.charAt(i))) { isContemLetra =
-		 * true; } else { isCaracacterInvalido = true; }
+		 * na string passada
+		 * 
+		 * if (Character.isDigit(senha.charAt(i))) { isContemNumero = true; } else if
+		 * (Character.isAlphabetic(senha.charAt(i))) { isContemLetra = true; } else {
+		 * isCaracacterInvalido = true; }
 		 * 
 		 * }
 		 */
