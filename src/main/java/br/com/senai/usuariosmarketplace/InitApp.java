@@ -5,8 +5,7 @@ import br.com.senai.usuariosmarketplace.core.service.UsuarioService;
 public class InitApp {
 
 	public static void main(String[] args) {
-		UsuarioService service = new UsuarioService();
-		System.out.println(service.gerarHashDa("@Ger4563%"));
+
 	}
 
 }
