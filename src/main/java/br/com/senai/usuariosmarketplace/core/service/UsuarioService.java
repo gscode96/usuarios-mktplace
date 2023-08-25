@@ -25,7 +25,7 @@ public class UsuarioService {
 	}
 
 	public Usuario criarUsuarioPor(String nomeCompleto, String senha) {
-		
+
 		this.validar(nomeCompleto, senha);
 		String login = gerarLoginPor(nomeCompleto);
 		String senhaCriptografada = gerarHashDa(senha);
@@ -36,7 +36,7 @@ public class UsuarioService {
 	}
 
 	public Usuario atualizarPor(String login, String nomeCompleto, String senhaAntiga, String senhaNova) {
-		//metodo para atualizar o cadastro do usuario
+		// metodo para atualizar o cadastro do usuario
 		Preconditions.checkArgument(!Strings.isNullOrEmpty(login), "O Login é obrigatório para a atualização!");
 		Preconditions.checkArgument(!Strings.isNullOrEmpty(senhaAntiga),
 				"A senha antiga é obrigatoria para a atualização!");
@@ -52,6 +52,14 @@ public class UsuarioService {
 		this.dao.alterar(usuarioAlterado);
 		usuarioAlterado = dao.buscarPor(login);
 		return usuarioAlterado;
+	}
+
+	public Usuario buscarPor(String login) {
+		Preconditions.checkArgument(!Strings.isNullOrEmpty(login), "O login é obrigatório!");
+		Usuario usuarioEncontrado = dao.buscarPor(login);
+		Preconditions.checkNotNull(usuarioEncontrado, "Não foi encontrado usuário vinculado ao login informado!");
+		return usuarioEncontrado;
+
 	}
 
 	private String removerAcentoDo(String nomeCompleto) {
