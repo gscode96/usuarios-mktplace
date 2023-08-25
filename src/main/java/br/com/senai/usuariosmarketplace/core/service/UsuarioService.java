@@ -44,7 +44,7 @@ public class UsuarioService {
 		// metodo para remover artigos
 		List<String> nomeFracionado = new ArrayList<String>();
 		if (!Strings.isNullOrEmpty(nomeCompleto)) {
-			//removendo espaço em branco
+			// removendo espaço em branco
 			nomeCompleto = nomeCompleto.trim();
 			String[] partesDoNome = nomeCompleto.split(" ");
 			for (String parte : partesDoNome) {
@@ -52,7 +52,7 @@ public class UsuarioService {
 						&& !parte.equalsIgnoreCase("da") && !parte.equalsIgnoreCase("do")
 						&& !parte.equalsIgnoreCase("dos") && !parte.equalsIgnoreCase("das");
 				if (isNaoContemArtigo) {
-					//colocando em minusculo
+					// colocando em minusculo
 					nomeFracionado.add(parte.toLowerCase());
 				}
 			}
@@ -69,9 +69,14 @@ public class UsuarioService {
 			for (int i = 1; i < partesDoNome.size(); i++) {
 				// i maior que zero para pular o "jose"
 				loginGerado = partesDoNome.get(0) + "." + partesDoNome.get(i);
+
+				if (loginGerado.length() > 40) {
+					loginGerado = loginGerado.substring(0, 40);
+				}
 				// buscando o login no banco para ver se existe
 				usuarioEncontrado = dao.buscarPor(loginGerado);
 				if (usuarioEncontrado == null) {
+
 					return loginGerado;
 				}
 
